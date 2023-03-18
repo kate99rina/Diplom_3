@@ -1,4 +1,4 @@
-package util.util;
+package util;
 
 import com.github.javafaker.Faker;
 
