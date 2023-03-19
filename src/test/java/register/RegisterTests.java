@@ -1,37 +1,27 @@
 package register;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.junit4.DisplayName;
 import lombok.SneakyThrows;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.chrome.ChromeDriver;
 import page_objects.HomePage;
 import page_objects.LoginPage;
 import page_objects.RegisterPage;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import service.BaseTest;
 
 import static util.FakerData.*;
 
-public class RegisterTests {
-    private final static String WEB_LINK = "http://stellarburgers.nomoreparties.site/";
-    private WebDriver driver;
-
-    //Проверь:
-    //Успешную регистрацию.
-    //Ошибку для некорректного пароля. Минимальный пароль — шесть символов.
+@DisplayName("Register")
+public class RegisterTests extends BaseTest {
 
     @Before
     public void init() {
-        ChromeOptions option = new ChromeOptions();
-        option.addArguments("--remote-allow-origins=*");
-
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(option);
+        driver = new ChromeDriver(getOptions());
         driver.get(WEB_LINK);
     }
 
+    @DisplayName("Успешная регистрация пользователя")
     @SneakyThrows
     @Test
     public void checkSuccessRegister() {
@@ -50,9 +40,11 @@ public class RegisterTests {
         registerPage.fillUserInfo(email, name, password);
         registerPage.clickButtonToRegister();
 
-        loginPage.waitElement(loginPage.getEnterForm());//todo expected nothing error
+        waitElement(loginPage.getEnterForm());
+        checkElement(loginPage.getEnterForm());
     }
 
+    @DisplayName("Неуспешная регистрация пользователя с некорректным паролем")
     @Test
     public void checkIncorrectPasswordRegister() {
         String email = getEmail();
@@ -72,8 +64,4 @@ public class RegisterTests {
         registerPage.checkErrorIncorrectPassword();
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 }
