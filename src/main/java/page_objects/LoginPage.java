@@ -1,33 +1,25 @@
 package page_objects;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
     private final WebDriver driver;
-    private By ENTER_FORM = By.xpath(".//h2[text()='Вход']");
-    //ссылка зарегистрироваться
-    private By LINK_REGISTER = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Зарегистрироваться']");
-    private By LINK_RESET_PASSWORD = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Восстановить пароль']");
-    //почта
-    private By INPUT_EMAIL = By.xpath(".//label[text()='Email']//parent::*//input");
-    private By INPUT_PASSWORD = By.xpath(".//label[text()='Пароль']//parent::*//input");
-    // кнопка войти
-    private By BUTTON_LOGIN = By.xpath(".//button[text()='Войти']");
-    private By LOGO = By.xpath(".//a[@href='/']");
+    @Getter
+    private By enterForm = By.xpath(".//h2[text()='Вход']");
+    @Getter
+    private By linkRegister = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Зарегистрироваться']");
+    private By linkResetPassword = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Восстановить пароль']");
+    private By inputEmail = By.xpath(".//label[text()='Email']//parent::*//input");
+    private By inputPassword = By.xpath(".//label[text()='Пароль']//parent::*//input");
+    private By buttonLogin = By.xpath(".//button[text()='Войти']");
+    private By logo = By.xpath(".//a[@href='/']");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-    }
-
-    public By getLinkRegister() {
-        return LINK_REGISTER;
-    }
-
-    public By getEnterForm() {
-        return ENTER_FORM;
     }
 
     @Step("Переместиться к элементу")
@@ -37,22 +29,22 @@ public class LoginPage {
 
     @Step("Переход на страницу регистрации")
     public void clickToRegister() {
-        driver.findElement(LINK_REGISTER).click();
+        driver.findElement(linkRegister).click();
     }
 
     @Step("Нажать на кнопку входа")
     public void clickToLogin() {
-        driver.findElement(BUTTON_LOGIN).click();
+        driver.findElement(buttonLogin).click();
     }
 
     @Step("Нажать на логотип")
     public void clickLogo() {
-        driver.findElement(LOGO).click();
+        driver.findElement(logo).click();
     }
 
     @Step("Переход на страницу сброса пароля")
     public void clickResetPassword() {
-        driver.findElement(LINK_RESET_PASSWORD).click();
+        driver.findElement(linkResetPassword).click();
     }
 
     @Step("Заполнение информации о пользователе: {email}, {password}")
@@ -63,11 +55,11 @@ public class LoginPage {
 
     @Step("Заполнение поля Email: {email}")
     public void fillEmail(String email) {
-        driver.findElement(INPUT_EMAIL).sendKeys(email);
+        driver.findElement(inputEmail).sendKeys(email);
     }
 
     @Step("Заполнение поля Password: {password}")
     public void fillPassword(String password) {
-        driver.findElement(INPUT_PASSWORD).sendKeys(password);
+        driver.findElement(inputPassword).sendKeys(password);
     }
 }

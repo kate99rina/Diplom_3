@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ResetPasswordPage {
     private final WebDriver driver;
-    private By LINK_ENTER = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Войти']");
+    private By linkEnter = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Войти']");
 
     public ResetPasswordPage(WebDriver driver) {
         this.driver = driver;
@@ -14,6 +14,6 @@ public class ResetPasswordPage {
 
     @Step("Нажать на кнопку входа")
     public void clickEnterLink() {
-        driver.findElement(LINK_ENTER).click();
+        driver.findElement(linkEnter).click();
     }
 }

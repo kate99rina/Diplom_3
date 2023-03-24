@@ -62,8 +62,7 @@ public abstract class BaseTest {
     public void waitElement(By element) throws Exception {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(5))
-                    .until(ExpectedConditions.visibilityOfElementLocated(
-                            element));
+                    .until(ExpectedConditions.visibilityOfElementLocated(element));
         } catch (Exception e) {
             throw new Exception("ERROR! Expected element is NOT FOUND");
         }
